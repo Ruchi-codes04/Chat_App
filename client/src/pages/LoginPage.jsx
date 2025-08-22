@@ -9,6 +9,15 @@ const LoginPage = () => {
   const [bio, setBio] = useState("")
   const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
+  const onSubmitHandler = (event)=> {
+    event.preventDefault();
+
+    if (currentState === 'Sign up' && !isDataSubmitted) {
+      setIsDataSubmitted(true)
+      return;
+    }
+  }
+
   return (
     <div className='min-h-screen bg-cover bg-center flex items-center justify-center gap-8 sm:justify-evenly max-sm:flex-col backdrop-blur-2xl'>
 
@@ -18,10 +27,12 @@ const LoginPage = () => {
 
       {/* -----------right------------ */}
 
-      <form className='border-2 bg-white/8 text-white border-gray-500 p-6 flex flex-col gap-6 rounded-lg shadow-lg'>
+      <form onSubmit={onSubmitHandler} className='border-2 bg-white/8 text-white border-gray-500 p-6 flex flex-col gap-6 rounded-lg shadow-lg'>
         <h2 className='font-medium text-2xl flex justify-between items-center'>
           {currentState}
-          <img src={assets.arrow_icon} alt="" className='w-5 cursor-pointer'/>
+
+          {isDataSubmitted &&  <img onClick={()=> setIsDataSubmitted(false)} src={assets.arrow_icon} alt="" className='w-5 cursor-pointer'/>}
+         
         </h2>
          
 
@@ -35,7 +46,7 @@ const LoginPage = () => {
                 <>
                 <input onChange={(e)=>setEmail(e.target.value)} value={email} type="email" placeholder='Email Address' required className='p-2 border border-gray-500
                 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-transparent' />
-                <input onChange={(e)=>setPassword(e.target.value)} value={password} type="email" placeholder='password' required className='p-2 border border-gray-500
+                <input onChange={(e)=>setPassword(e.target.value)} value={password} type="password" placeholder='password' required className='p-2 border border-gray-500
                 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-transparent' />
                 </>
                )}
@@ -46,7 +57,7 @@ const LoginPage = () => {
 
                   <textarea onChange={(e)=>setBio(e.target.value)} 
                    rows={4} className='p-2 border border-gray-500
-                  rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500' placeholder='provide a short bio...' required></textarea>
+                  rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-transparent' placeholder='provide a short bio...' required></textarea>
                 )
                }
 
@@ -77,3 +88,4 @@ const LoginPage = () => {
 }
 
 export default LoginPage
+
