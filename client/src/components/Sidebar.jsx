@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext';
 
 const Sidebar = ({selectedUser, setSelectedUser}) => {
+    const {logout} = useContext(AuthContext)
     const navigate = useNavigate();
 
-    const {logout} = useContext(AuthContext)
+    
 
 
 
