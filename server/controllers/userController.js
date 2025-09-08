@@ -14,6 +14,10 @@ export const signup = async (req, res)=> {
         if (!fullName || !email || !password ||!bio) {
             return res.json({success: false, message: "Missing Details"})
         }
+
+        if (!email.endsWith("@gmail.com")) {
+      return res.json({ success: false, message: "Only @gmail.com emails are allowed" });
+       }
         const user = await User.findOne({email});
 
         if (user) {

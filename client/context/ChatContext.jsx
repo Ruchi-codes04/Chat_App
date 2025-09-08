@@ -31,6 +31,12 @@ export const ChatProvider = ({ children }) => {
       const { data } = await axios.get(`/api/messages/${userId}`);
       if (data.success) {
         setMessages(data.messages);
+
+         // Clear unseen count for this user immediately
+      setUnseenMessages((prev) => ({
+        ...prev,
+        [userId]: 0,
+      }));
       }
     } catch (error) {
       toast.error(error.message);
@@ -91,7 +97,6 @@ export const ChatProvider = ({ children }) => {
     selectedUser,
     getUsers,
     getMessages,
-    setMessages,
     sendMessages,
     setSelectedUser,
     unseenMessages,
